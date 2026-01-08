@@ -9,6 +9,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTodo, clearTodo } from "../slices/todosSlice";
 import { RootState, AppDispatch } from "../../../../store/store";
+import { useTheme } from 'react-native-paper';
+
+const CustomCard = () => {
+  const { colors } = useTheme();
+
+  return (
+    <View style={{ backgroundColor: colors.secondaryContainer, padding: 16 }}>
+      <Text>Hello World</Text>
+    </View>
+  );
+};
 
 export const TodosScreen: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -58,6 +69,7 @@ export const TodosScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <CustomCard></CustomCard>
       <Text style={styles.title}>Todo Details</Text>
       <View style={styles.card}>
         <View style={styles.row}>

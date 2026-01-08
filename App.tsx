@@ -20,18 +20,24 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import { PostsScreen } from './src/features/posts/presentation/PostsScreen';
 import { TodosScreen } from './src/features/todos/presentation/screens/TodosScreen';
 import { store } from './src/store/store';
+import { PaperProvider, MD3LightTheme } from 'react-native-paper';
+import { customLightTheme, customDarkTheme } from './src/theme/appTheme';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
-  return (
+  const scheme = useColorScheme(); // 'light' or 'dark' based on system setting
 
-        <SafeAreaProvider>
-      <StatusBar barStyle={!isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
+  const theme = scheme === 'dark' ? customDarkTheme : customLightTheme;
+
+  return (
+    <SafeAreaProvider>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <PaperProvider theme={theme}>
+       <AppContent />
+      </PaperProvider>
     </SafeAreaProvider>
   
   );
@@ -40,6 +46,7 @@ function App() {
 function AppContent() {
   return (
     <Provider store={store}>  
+    
       <TodosScreen />
     </Provider>
   );
