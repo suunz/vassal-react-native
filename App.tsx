@@ -1,8 +1,12 @@
 /**
  * Sample React Native App - Mini UI Playground
+ * 
+ * 
  * @format
  */
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import {
   StatusBar,
@@ -15,44 +19,29 @@ import {
   Alert,
 } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import {TodoScreen} from './features/todo/presentation/screens/TodoScreen';
 import { Provider } from 'react-redux';
-import { store } from './features/store';
-import { CounterScreen } from './features/demoCounter/counterScreen';
+import { PostsScreen } from './src/features/posts/presentation/PostsScreen';
+import { TodosScreen } from './src/features/todos/presentation/screens/TodosScreen';
+import { store } from './src/store/store';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <Provider store={store}>
+
         <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={!isDarkMode ? 'light-content' : 'dark-content'} />
       <AppContent />
     </SafeAreaProvider>
-    </Provider>
   
   );
 }
 
 function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  // Function to handle button presses
-  const handlePress = (index: number) => {
-    Alert.alert('Button Pressed', `Button ${index} pressed!`);
-  };
-
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.scrollContainer,
-        { paddingTop: safeAreaInsets.top, paddingBottom: safeAreaInsets.bottom },
-      ]}
-    >
-      <Text style={styles.title}>Mini UI Playground</Text>
-        <TodoScreen />
-        <CounterScreen />
-    </ScrollView>
+    <Provider store={store}>  
+      <TodosScreen />
+    </Provider>
   );
 }
 
