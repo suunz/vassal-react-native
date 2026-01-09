@@ -24,6 +24,7 @@ import { TodosScreen } from './src/features/todos/presentation/screens/TodosScre
 import { store } from './src/store/store';
 import { PaperProvider, MD3LightTheme } from 'react-native-paper';
 import { customLightTheme, customDarkTheme } from './src/theme/appTheme';
+import CustomPlayGround from './src/features/playground/CustomPlayGround';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -46,7 +47,8 @@ function App() {
 function AppContent() {
   return (
     <Provider store={store}>  
-      <TodosScreen />
+      {/* <TodosScreen /> */}
+      <CustomPlayGround/>
     </Provider>
   );
 }
