@@ -1,8 +1,25 @@
+// {
+//   "extends": "@react-native/typescript-config",
+//   "compilerOptions": {
+//     "types": ["jest"],
+//     "strict": true
+//   },
+//   "include": ["**/*.ts", "**/*.tsx","src"],
+//   "exclude": ["**/node_modules", "**/Pods"]
+// }
+
+
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
     "types": ["jest"],
+    "strict": true
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": [
+    "src",
+    "src/types/**/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
   "exclude": ["**/node_modules", "**/Pods"]
 }

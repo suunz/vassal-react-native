@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
   View,
-  Text,
+
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
@@ -9,13 +9,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTodo, clearTodo } from "../slices/todosSlice";
 import { RootState, AppDispatch } from "../../../../store/store";
-import { useTheme } from 'react-native-paper';
+import { useTheme,  Text, } from 'react-native-paper';
+import { useAppTheme } from '../../../../theme/useAppTheme';
 
 const CustomCard = () => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   return (
-    <View style={{ backgroundColor: colors.secondaryContainer, padding: 16 }}>
+    <View style={{ backgroundColor: colors.surface, padding: 16 }}>
       <Text>Hello World</Text>
     </View>
   );

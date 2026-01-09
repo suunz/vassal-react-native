@@ -46,7 +46,6 @@ function App() {
 function AppContent() {
   return (
     <Provider store={store}>  
-    
       <TodosScreen />
     </Provider>
   );
