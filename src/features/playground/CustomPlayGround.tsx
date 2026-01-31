@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -9,10 +9,16 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons'; 
-// for play icon
+import { Alert } from "react-native";
+import { Snackbar, Button } from "react-native-paper";
+
+
+
 
 const { width } = Dimensions.get('window');
+
+
+
 
 
 const recentViewingData = [
@@ -31,9 +37,37 @@ const comingThisWeekData = [
   { id: '1', title: 'Thirteen', image: ('https://cloudfront-us-east-1.images.arcpublishing.com/octane/5MF3TTAC4OZBDQXILQWEKHYYEI.jpg') },
   { id: '2', title: 'Spider Man', image: ('https://cloudfront-us-east-1.images.arcpublishing.com/octane/5MF3TTAC4OZBDQXILQWEKHYYEI.jpg') },
   { id: '3', title: 'Avengers', image: ('https://cloudfront-us-east-1.images.arcpublishing.com/octane/5MF3TTAC4OZBDQXILQWEKHYYEI.jpg') },
+  { id: '4', title: 'Wealthy Attwood', image: ('https://cloudfront-us-east-1.images.arcpublishing.com/octane/5MF3TTAC4OZBDQXILQWEKHYYEI.jpg') },
+  { id: '5', title: 'Pokemon Detective', image: ('https://cloudfront-us-east-1.images.arcpublishing.com/octane/5MF3TTAC4OZBDQXILQWEKHYYEI.jpg') },
+  { id: '6', title: 'Paris in Night', image: ('https://cloudfront-us-east-1.images.arcpublishing.com/octane/5MF3TTAC4OZBDQXILQWEKHYYEI.jpg') },
+  { id: '7', title: 'The Gate', image: ('https://cloudfront-us-east-1.images.arcpublishing.com/octane/5MF3TTAC4OZBDQXILQWEKHYYEI.jpg') },
+  { id: '8', title: 'The Gate 2', image: ('https://cloudfront-us-east-1.images.arcpublishing.com/octane/5MF3TTAC4OZBDQXILQWEKHYYEI.jpg') },
 ];
 
+const showAlert = () => {
+  Alert.alert(
+    "Play Trailer",
+    "Do you want to play this trailer?",
+    [
+      { text: "Cancel", style: "cancel" },
+      { text: "Play", onPress: () => console.log("Playing...") },
+    ]
+  );
+};
+
+
 const CustomPlayGround = () => {
+
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+
+<Snackbar
+  visible={snackbarVisible}
+  onDismiss={() => setSnackbarVisible(false)}
+  duration={3000}
+>
+  Added to watchlist 🎬
+</Snackbar>
+
   const renderRecentItem = ({ item }: any) => (
     <View style={styles.recentItem}>
       <Image
@@ -101,8 +135,15 @@ const CustomPlayGround = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 16 }}
         bounces={true} // true by default on iOS
-
+        alwaysBounceHorizontal={true}
+        alwaysBounceVertical={false}
       />
+      {/* <Text>Alert Dialog</Text> */}
+      <TouchableOpacity onPress={showAlert}><Text>Alert</Text></TouchableOpacity>
+      <Button onPress={() => setSnackbarVisible(true)}>
+  Show Snackbar
+</Button>
+
     </ScrollView>
   );
 };
