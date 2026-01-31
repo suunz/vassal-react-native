@@ -7,6 +7,7 @@ import {
   Alert,
   Dimensions,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Card,
@@ -47,7 +48,6 @@ const PhotosScreen: React.FC = () => {
         {
           text: 'View Full Size',
           onPress: () => {
-            // Here you could navigate to a full-size photo viewer
             console.log('View full size:', photo.url);
           },
         },
@@ -56,27 +56,52 @@ const PhotosScreen: React.FC = () => {
     );
   };
 
+  const handlePhotoLongPress = (photo: Photo) => {
+    Alert.alert(
+      'Photo Options',
+      `What would you like to do with "${photo.title}"?`,
+      [
+        {
+          text: 'Share',
+          onPress: () => console.log('Share photo:', photo.id),
+        },
+        {
+          text: 'Save',
+          onPress: () => console.log('Save photo:', photo.id),
+        },
+        { text: 'Cancel', style: 'cancel' },
+      ]
+    );
+  };
+
   const renderPhotoItem = ({ item }: { item: Photo }) => (
-    <Card
-      style={[styles.photoCard, { width: ITEM_WIDTH }]}
+    <TouchableOpacity
+      activeOpacity={0.8}
       onPress={() => handlePhotoPress(item)}
+      onLongPress={() => handlePhotoLongPress(item)}
+      delayLongPress={500}
     >
-      <Image
-        source={{ uri: item.thumbnailUrl }}
-        style={styles.thumbnail}
-        resizeMode="cover"
-      />
-      <Card.Content style={styles.cardContent}>
-        <Text variant="bodySmall" numberOfLines={2} style={styles.title}>
-          {item.title}
-        </Text>
-        <View style={styles.chipContainer}>
-          <Chip compact mode="outlined" style={styles.chip}>
-            Album {item.albumId}
-          </Chip>
-        </View>
-      </Card.Content>
-    </Card>
+      <Card
+        style={[styles.photoCard, { width: ITEM_WIDTH }]}
+        mode="elevated"
+      >
+        <Image
+          source={{ uri: item.thumbnailUrl }}
+          style={styles.thumbnail}
+          resizeMode="cover"
+        />
+        <Card.Content style={styles.cardContent}>
+          <Text variant="bodySmall" numberOfLines={2} style={styles.title}>
+            {item.title}
+          </Text>
+          <View style={styles.chipContainer}>
+            <Chip compact mode="outlined" style={styles.chip}>
+              Album {item.albumId}
+            </Chip>
+          </View>
+        </Card.Content>
+      </Card>
+    </TouchableOpacity>
   );
 
   const renderEmptyState = () => (
